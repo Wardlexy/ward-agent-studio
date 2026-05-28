@@ -1,0 +1,76 @@
+{
+  "name": "ward-agent-studio",
+  "version": "1.0.0",
+  "description": "Ward Agent Studio: a pixel-art AI agent command center for portfolio projects, learning, prompts, and career prep",
+  "author": "Wardlexy",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wardlexy/ward-agent-studio.git"
+  },
+  "homepage": "https://github.com/Wardlexy/ward-agent-studio",
+  "bugs": "https://github.com/Wardlexy/ward-agent-studio/issues",
+  "type": "module",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "dev:electron": "concurrently \"vite\" \"sleep 2 && electron .\"",
+    "dev:all": "concurrently \"node server/index.js\" \"vite\"",
+    "build": "tsc && vite build",
+    "build:electron": "vite build && electron-builder",
+    "pack": "vite build && electron-builder --dir",
+    "electron": "electron .",
+    "start": "npm run dev:electron",
+    "server": "node server/index.js",
+    "install-hooks": "bash hooks/install-hooks.sh"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.8.0",
+    "concurrently": "^8.2.2",
+    "express": "^4.19.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/ws": "^8.5.12",
+    "@vitejs/plugin-react": "^4.3.1",
+    "electron": "^33.0.0",
+    "electron-builder": "^24.13.3",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.0"
+  },
+  "build": {
+    "appId": "com.ward.agentstudio",
+    "productName": "Ward Agent Studio",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**",
+      "electron/**",
+      "server/**",
+      "public/**",
+      "node_modules/**"
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "target": [
+        "dmg"
+      ]
+    },
+    "extraResources": [
+      {
+        "from": "server",
+        "to": "server"
+      },
+      {
+        "from": "public",
+        "to": "public"
+      }
+    ]
+  }
+}
